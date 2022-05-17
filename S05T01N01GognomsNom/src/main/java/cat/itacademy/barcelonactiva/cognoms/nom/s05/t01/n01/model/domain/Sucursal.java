@@ -1,6 +1,14 @@
 package cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n01.model.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Sucursal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer pk_SucursalID;
     private String nomSucursal;
     private String paisSucursal;
