@@ -1,27 +1,14 @@
-package cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n01.model.domain;
+package cat.itacademy.barcelonactiva.cognoms.nom.s05.t01.n01.model.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class Sucursal {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+public class SucursalUpdateDTO {
     private Integer pk_SucursalID;
     private String nomSucursal;
     private String paisSucursal;
 
-    public Sucursal() {
+    public SucursalUpdateDTO() {
     }
 
-    public Sucursal(String nomSucursal, String paisSucursal) {
-        this.nomSucursal = nomSucursal;
-        this.paisSucursal = paisSucursal;
-    }
-
-    public Sucursal(Integer pk_SucursalID, String nomSucursal, String paisSucursal) {
+    public SucursalUpdateDTO(Integer pk_SucursalID, String nomSucursal, String paisSucursal) {
         this.pk_SucursalID = pk_SucursalID;
         this.nomSucursal = nomSucursal;
         this.paisSucursal = paisSucursal;
@@ -53,7 +40,7 @@ public class Sucursal {
 
     @Override
     public String toString() {
-        return "Sucursal{" +
+        return "SucursalDTO{" +
                 "pk_SucursalID=" + pk_SucursalID +
                 ", nomSucursal='" + nomSucursal + '\'' +
                 ", paisSucursal='" + paisSucursal + '\'' +

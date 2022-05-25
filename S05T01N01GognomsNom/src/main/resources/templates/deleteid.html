@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Delete Sucursals</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        h1{text-align: center;}
+        div{color: red;}
+    </style>
+</head>
+<body>
+<h1>Sucursals APP</h1>
+<h2>Sucursal deleted:</h2>
+<p th:if="${sucursals.empty}"> No Sucursal Deleted! Check Id!</p>
+<div th:each="sucursal : ${sucursals}">
+    <a>Sucursal ID: </a>
+    <a th:text="${sucursal.pk_SucursalID}">Id</a>
+    <a> - Nom: </a>
+    <a th:text="${sucursal.nomSucursal}">Nom</a>
+    <a> - Pais: </a>
+    <a th:text="${sucursal.paisSucursal}">Pais</a>
+    <a> / </a>
+    <a th:text="${sucursal.tipusSucursal}">Tipus</a>
+
+</div>
+<!-- <table>
+    <thead>
+    <tr>
+        <th> ID </th>
+        <th> Nom </th>
+        <th> Pais </th>
+        <th> Tipus </th>
+        <th> Deleted </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${sucursals.empty}">
+        <td colspan="2"> No Sucursal Deleted, check ID </td>
+    </tr>
+    <tr th:each="sucursal : ${sucursals}">
+        <td><span th:text="${sucursal.pk_SucursalID}"> ID </span></td>
+        <td><span th:text="${sucursal.nomSucursal}"> Nom </span></td>
+        <td><span th:text="${sucursal.paisSucursal}"> Pais </span></td>
+        <td><span th:text="${sucursal.tipusSucursal}"> Tipus </span></td>
+        <td style="color:red; font-weight:bold"><span th:text="YES"> Deleted </span></td>
+    </tr>
+    </tbody>
+</table> -->
+</body>
+</html>
