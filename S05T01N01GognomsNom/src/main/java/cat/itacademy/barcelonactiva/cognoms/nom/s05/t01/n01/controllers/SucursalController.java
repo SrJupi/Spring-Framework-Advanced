@@ -31,18 +31,26 @@ public class SucursalController {
     @GetMapping("/sucursal/add")
     public String createAddForm (Model model){
         SucursalAddDTO addDTO = new SucursalAddDTO();
-        model.addAttribute("form", addDTO);
+        model.addAttribute("addDTO", addDTO);
         return "addForm";
     }
 
     @PostMapping("/sucursal/add")
-    public ResponseEntity<?> addSucursal(@RequestBody SucursalAddDTO sucursal){
-        return service.addSucursal(sucursal);
+    public String addSucursal(SucursalAddDTO sucursal, Model model) {
+        model.addAttribute("sucursals", service.addSucursal(sucursal));
+        return "addResult";
     }
 
-    @PutMapping("sucursal/update")
-    public ResponseEntity<?> updateSucursal(@RequestBody SucursalUpdateDTO sucursal){
-        return service.updateSucursal(sucursal);
+    @GetMapping("/sucursal/update")
+    public String createUpdateForm (Model model){
+        SucursalUpdateDTO updateDTO = new SucursalUpdateDTO();
+        model.addAttribute("updateDTO", updateDTO);
+        return "updateForm";
+    }
+    @PostMapping("sucursal/update")
+    public String updateSucursal(SucursalUpdateDTO sucursal, Model model){
+        model.addAttribute("sucursals", service.updateSucursal(sucursal));
+        return "updateResult";
     }
 
     @GetMapping("sucursal/delete/{id}")

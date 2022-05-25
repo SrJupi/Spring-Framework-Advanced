@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Sucursals</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        h1{text-align: center;}
+    </style>
+</head>
+<body>
+<h1>Sucursals APP</h1>
+<h2>Added sucursal:</h2>
+<p th:if="${sucursals.empty}"> No Sucursal Added! Check entry data!</p>
+<div th:each="sucursal : ${sucursals}">
+    <a>Sucursal ID: </a>
+    <a th:text="${sucursal.pk_SucursalID}">Id</a>
+    <a> - Nom: </a>
+    <a th:text="${sucursal.nomSucursal}">Nom</a>
+    <a> - Pais: </a>
+    <a th:text="${sucursal.paisSucursal}">Pais</a>
+    <a> / </a>
+    <a th:text="${sucursal.tipusSucursal}">Tipus</a>
+</div>
+<form th:action="@{/sucursal/getAll}" method="get">
+    <input type="submit" value="View all sucursals" />
+</form>
+<form th:action="@{/sucursal/add}" method="get">
+    <input type="submit" value="Add other value" />
+</form>
+</body>
+</html>

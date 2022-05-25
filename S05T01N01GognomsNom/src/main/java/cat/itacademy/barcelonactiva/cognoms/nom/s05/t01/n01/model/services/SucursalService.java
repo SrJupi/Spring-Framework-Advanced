@@ -41,34 +41,35 @@ public class SucursalService {
         return sucursalDTOList;
     }
 
-    public ResponseEntity<?> addSucursal(SucursalAddDTO sucursalAddDTO) {
-        if (sucursalAddDTO.getNomSucursal() == null){
-            return ResponseEntity.badRequest().body("Sucursal name is empty!");
-        }
-        if (sucursalAddDTO.getPaisSucursal() == null){
-            return ResponseEntity.badRequest().body("Country name is empty!");
+    public List<?> addSucursal(SucursalAddDTO sucursalAddDTO) {
+        List<SucursalDTO> sucursalDTOList = new ArrayList<>();
+        if (sucursalAddDTO.getNomSucursal() == null
+                || sucursalAddDTO.getPaisSucursal() == null){
+            return sucursalDTOList;
         }
         Sucursal sucursal = mapper.AddToEntity(sucursalAddDTO);
         sucursal = repository.save(sucursal);
-        return ResponseEntity.created(URI.create(String.format("/sucursal/%d", sucursal.getPk_SucursalID()))).build();
+        sucursalDTOList.add(mapper.entityToDTO(sucursal));
+        return sucursalDTOList;
     }
 
-    public ResponseEntity<?> updateSucursal(SucursalUpdateDTO sucursalUpdateDTO) {
-        if (sucursalUpdateDTO.getPk_SucursalID() == null){
-            return ResponseEntity.badRequest().body("Id is needed!");
-        }
-        if (!repository.existsById(sucursalUpdateDTO.getPk_SucursalID())){
-            return ResponseEntity.notFound().build();
+    public List<?> updateSucursal(SucursalUpdateDTO sucursalUpdateDTO) {
+        List<SucursalDTO> sucursalDTOList = new ArrayList<>();
+        if (sucursalUpdateDTO.getPk_SucursalID() == null
+                || !repository.existsById(sucursalUpdateDTO.getPk_SucursalID())){
+            return sucursalDTOList;
         }
         Sucursal sucursal = repository.getById(sucursalUpdateDTO.getPk_SucursalID());
-        if (sucursalUpdateDTO.getNomSucursal() != null){
+        sucursalDTOList.add(mapper.entityToDTO(sucursal));
+        if (!sucursalUpdateDTO.getNomSucursal().equals("")){
             sucursal.setNomSucursal(sucursalUpdateDTO.getNomSucursal());
         }
-        if (sucursalUpdateDTO.getPaisSucursal() != null){
+        if (!sucursalUpdateDTO.getPaisSucursal().equals("")){
             sucursal.setPaisSucursal(sucursalUpdateDTO.getPaisSucursal());
         }
-        repository.save(sucursal);
-        return ResponseEntity.ok().build();
+        sucursal = repository.save(sucursal);
+        sucursalDTOList.add(mapper.entityToDTO(sucursal));
+        return sucursalDTOList;
     }
 
     public List<?> deleteSucursal(Integer id) {

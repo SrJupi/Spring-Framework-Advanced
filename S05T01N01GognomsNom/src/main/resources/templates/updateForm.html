@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add Sucursals</title>
+    <title>Update Sucursals</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <style>
         h1{text-align: center;}
@@ -9,10 +9,11 @@
 </head>
 <body>
 <h1>Sucursals APP</h1>
-<h2>Add sucursal:</h2>
-<form action="#" th:action="@{/sucursal/add}" th:object="${addDTO}" method="post">
-    <p>Sucursal Nom: <input type="text" th:field="*{nomSucursal}" required /></p>
-    <p>Sucursal Pais: <input type="text" th:field="*{paisSucursal}" required/></p>
+<h2>Updated sucursal:</h2>
+<form action="#" th:action="@{/sucursal/update}" th:object="${updateDTO}" method="post">
+    <p>Sucursal Id: <input type="number" th:field="*{pk_SucursalID}" required /></p>
+    <p>Sucursal Nom: <input type="text" th:field="*{nomSucursal}" /></p>
+    <p>Sucursal Pais: <input type="text" th:field="*{paisSucursal}" /></p>
     <input type="submit" id="submitButton" th:value="Save">
     <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
 </form>
