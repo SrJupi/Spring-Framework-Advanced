@@ -45,19 +45,23 @@ public class FlorService {
         if (florDTO.getPaisFlor() == null){
             return ResponseEntity.badRequest().body("Country name is empty!");
         }
-        if (repository.existsById(florDTO.getPk_FlorID())){
-            return ResponseEntity.badRequest().body(String.format("Id %d already exists!", florDTO.getPk_FlorID()));
+        if (florDTO.getPk_FlorID() != null){
+            if (repository.existsById(florDTO.getPk_FlorID())){
+                return ResponseEntity.badRequest().body(String.format("Id %d already exists!", florDTO.getPk_FlorID()));
+            }
         }
         FlorEntity flor = mapper.DTOToEntity(florDTO);
         flor = repository.save(flor);
-        return ResponseEntity.created(URI.create(String.format("/fruita/%d", flor.getPk_FlorID()))).build();
+        return ResponseEntity.created(URI.create(String.format("/flor/%d", flor.getPk_FlorID()))).build();
     }
 
     public ResponseEntity<?> updateFlor(FlorDTO florDTO) {
-        if (!repository.existsById(florDTO.getPk_FlorID())){
+
+        Optional<FlorEntity> florOpt = repository.findById(florDTO.getPk_FlorID());
+        if (florOpt.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        FlorEntity flor = repository.getById(florDTO.getPk_FlorID());
+        FlorEntity flor = florOpt.get();
         if (florDTO.getNomFlor() != null){
             flor.setNomFlor(florDTO.getNomFlor());
         }

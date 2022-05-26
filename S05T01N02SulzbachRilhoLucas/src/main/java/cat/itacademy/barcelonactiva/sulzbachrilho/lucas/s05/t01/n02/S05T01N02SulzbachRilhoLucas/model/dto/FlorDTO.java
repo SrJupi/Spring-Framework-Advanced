@@ -1,5 +1,8 @@
 package cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n02.S05T01N02SulzbachRilhoLucas.model.dto;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class FlorDTO {
 
     private Integer pk_FlorID;
@@ -10,17 +13,24 @@ public class FlorDTO {
     public FlorDTO() {
     }
 
-    public FlorDTO(Integer pk_FlorID, String nomFlor, String paisFlor) {
-        this.pk_FlorID = pk_FlorID;
+    public FlorDTO(String nomFlor, String paisFlor) {
         this.nomFlor = nomFlor;
         this.paisFlor = paisFlor;
     }
 
-    public FlorDTO(Integer pk_FlorID, String nomFlor, String paisFlor, String tipusFlor) {
+    public FlorDTO(Integer pk_FlorID, String nomFlor, String paisFlor) {
         this.pk_FlorID = pk_FlorID;
         this.nomFlor = nomFlor;
         this.paisFlor = paisFlor;
-        this.tipusFlor = tipusFlor;
+        ArrayList<String> paisos = new ArrayList<>(Arrays.asList("Austria", "Belgium", "Bulgaria",
+                "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece",
+                "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands",
+                "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden"));
+        if (paisos.contains(paisFlor)){
+            this.tipusFlor = "UE";
+        }else{
+            this.tipusFlor = "Fora UE";
+        }
     }
 
     public Integer getPk_FlorID() {

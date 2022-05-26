@@ -7,13 +7,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class FlorMapper {
 
-    public FlorDTO entityToDTO (FlorEntity sucursal)
+    public FlorDTO entityToDTO (FlorEntity flor)
     {
-        return new FlorDTO(sucursal.getPk_FlorID(), sucursal.getNomFlor(), sucursal.getPaisFlor());
+        return new FlorDTO(flor.getPk_FlorID(), flor.getNomFlor(), flor.getPaisFlor());
     }
 
-    public FlorEntity DTOToEntity (FlorDTO sucursalDTO)
+    public FlorEntity DTOToEntity (FlorDTO florDTO)
     {
-        return new FlorEntity(sucursalDTO.getPk_FlorID(), sucursalDTO.getNomFlor(), sucursalDTO.getPaisFlor());
+        if (florDTO.getPk_FlorID() == null){
+            return new FlorEntity(florDTO.getNomFlor(), florDTO.getPaisFlor());
+        }
+        return new FlorEntity(florDTO.getPk_FlorID(), florDTO.getNomFlor(), florDTO.getPaisFlor());
     }
 }

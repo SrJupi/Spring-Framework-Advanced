@@ -22,6 +22,11 @@ public class FlorEntity {
         this.paisFlor = paisFlor;
     }
 
+    public FlorEntity(String nomFlor, String paisFlor) {
+        this.nomFlor = nomFlor;
+        this.paisFlor = paisFlor;
+    }
+
     public Integer getPk_FlorID() {
         return pk_FlorID;
     }
