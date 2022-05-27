@@ -1,6 +1,7 @@
 package cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n02.S05T01N02SulzbachRilhoLucas.controllers;
 
-import cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n02.S05T01N02SulzbachRilhoLucas.model.dto.FlorDTO;
+import cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n02.S05T01N02SulzbachRilhoLucas.model.dto.FlorAddDTO;
+import cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n02.S05T01N02SulzbachRilhoLucas.model.dto.FlorUpdateDTO;
 import cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n02.S05T01N02SulzbachRilhoLucas.model.services.FlorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +24,12 @@ public class FlorController {
     }
 
     @PostMapping("/flor/add")
-    public ResponseEntity<?> addFlor(@RequestBody FlorDTO flor){
+    public ResponseEntity<?> addFlor(@RequestBody FlorAddDTO flor){
         return service.addFlor(flor);
     }
 
     @PutMapping("flor/update")
-    public ResponseEntity<?> updateFlor(@RequestBody FlorDTO flor){
+    public ResponseEntity<?> updateFlor(@RequestBody FlorUpdateDTO flor){
         return service.updateFlor(flor);
     }
 

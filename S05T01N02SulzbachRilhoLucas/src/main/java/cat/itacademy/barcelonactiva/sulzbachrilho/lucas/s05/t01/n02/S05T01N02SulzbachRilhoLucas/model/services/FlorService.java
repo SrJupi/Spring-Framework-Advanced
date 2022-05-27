@@ -1,7 +1,9 @@
 package cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n02.S05T01N02SulzbachRilhoLucas.model.services;
 
 import cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n02.S05T01N02SulzbachRilhoLucas.model.domain.FlorEntity;
-import cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n02.S05T01N02SulzbachRilhoLucas.model.dto.FlorDTO;
+import cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n02.S05T01N02SulzbachRilhoLucas.model.dto.FlorAddDTO;
+import cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n02.S05T01N02SulzbachRilhoLucas.model.dto.FlorResponseDTO;
+import cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n02.S05T01N02SulzbachRilhoLucas.model.dto.FlorUpdateDTO;
 import cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n02.S05T01N02SulzbachRilhoLucas.model.repository.FlorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,7 @@ public class FlorService {
     private FlorMapper mapper;
 
     public ResponseEntity<?> getAll() {
-        List<FlorDTO> florDTOList = repository.findAll()
+        List<FlorResponseDTO> florDTOList = repository.findAll()
                 .stream()
                 .map(mapper::entityToDTO)
                 .toList();
@@ -31,42 +33,37 @@ public class FlorService {
     }
 
     public ResponseEntity<?> getFlor(Integer id) {
-        Optional<FlorDTO> optionalFlorDTO = repository.findById(id).map(mapper::entityToDTO);
+        Optional<FlorResponseDTO> optionalFlorDTO = repository.findById(id).map(mapper::entityToDTO);
         if (optionalFlorDTO.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(optionalFlorDTO.get());
     }
 
-    public ResponseEntity<?> addFlor(FlorDTO florDTO) {
-        if (florDTO.getNomFlor() == null){
+    public ResponseEntity<?> addFlor(FlorAddDTO florAddDTO) {
+        if (florAddDTO.getNomFlor() == null){
             return ResponseEntity.badRequest().body("Flor name is empty!");
         }
-        if (florDTO.getPaisFlor() == null){
+        if (florAddDTO.getPaisFlor() == null){
             return ResponseEntity.badRequest().body("Country name is empty!");
         }
-        if (florDTO.getPk_FlorID() != null){
-            if (repository.existsById(florDTO.getPk_FlorID())){
-                return ResponseEntity.badRequest().body(String.format("Id %d already exists!", florDTO.getPk_FlorID()));
-            }
-        }
-        FlorEntity flor = mapper.DTOToEntity(florDTO);
+        FlorEntity flor = mapper.DTOToEntity(florAddDTO);
         flor = repository.save(flor);
         return ResponseEntity.created(URI.create(String.format("/flor/%d", flor.getPk_FlorID()))).build();
     }
 
-    public ResponseEntity<?> updateFlor(FlorDTO florDTO) {
+    public ResponseEntity<?> updateFlor(FlorUpdateDTO florUpdateDTO) {
 
-        Optional<FlorEntity> florOpt = repository.findById(florDTO.getPk_FlorID());
+        Optional<FlorEntity> florOpt = repository.findById(florUpdateDTO.getPk_FlorID());
         if (florOpt.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         FlorEntity flor = florOpt.get();
-        if (florDTO.getNomFlor() != null){
-            flor.setNomFlor(florDTO.getNomFlor());
+        if (florUpdateDTO.getNomFlor() != null){
+            flor.setNomFlor(florUpdateDTO.getNomFlor());
         }
-        if (florDTO.getPaisFlor() != null){
-            flor.setPaisFlor(florDTO.getPaisFlor());
+        if (florUpdateDTO.getPaisFlor() != null){
+            flor.setPaisFlor(florUpdateDTO.getPaisFlor());
         }
         repository.save(flor);
         return ResponseEntity.ok().build();

@@ -3,22 +3,22 @@ package cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n02.S05T01N02Su
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FlorDTO {
+public class FlorResponseDTO {
 
     private Integer pk_FlorID;
     private String nomFlor;
     private String paisFlor;
     private String tipusFlor;
 
-    public FlorDTO() {
+    public FlorResponseDTO() {
     }
 
-    public FlorDTO(String nomFlor, String paisFlor) {
+    public FlorResponseDTO(String nomFlor, String paisFlor) {
         this.nomFlor = nomFlor;
         this.paisFlor = paisFlor;
     }
 
-    public FlorDTO(Integer pk_FlorID, String nomFlor, String paisFlor) {
+    public FlorResponseDTO(Integer pk_FlorID, String nomFlor, String paisFlor) {
         this.pk_FlorID = pk_FlorID;
         this.nomFlor = nomFlor;
         this.paisFlor = paisFlor;
