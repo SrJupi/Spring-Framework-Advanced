@@ -1,6 +1,7 @@
 package cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n03.S05T01N03SulzbachRilhoLucas.model.services;
 
 import cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n03.S05T01N03SulzbachRilhoLucas.model.dto.ClientFlorAddDTO;
+import cat.itacademy.barcelonactiva.sulzbachrilho.lucas.s05.t01.n03.S05T01N03SulzbachRilhoLucas.model.dto.ClientFlorUpdateDTO;
 import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
@@ -65,6 +66,21 @@ public class ClientService {
         HttpEntity<ClientFlorAddDTO> request = new HttpEntity<>(addDTO);
         try {
             response = restTemplate.exchange("/", HttpMethod.POST, request, String.class);
+        } catch (HttpClientErrorException e) {
+            response = new ResponseEntity<String>(e.getStatusCode());
+
+        }
+        return response;
+    }
+
+    public ResponseEntity<?> updateFlor(ClientFlorUpdateDTO updateDTO) {
+        RestTemplate restTemplate = new RestTemplateBuilder()
+                .rootUri("http://localhost:9001/flor/update")
+                .build();
+        ResponseEntity <?> response;
+        HttpEntity<ClientFlorUpdateDTO> request = new HttpEntity<>(updateDTO);
+        try {
+            response = restTemplate.exchange("/", HttpMethod.PUT, request, String.class);
         } catch (HttpClientErrorException e) {
             response = new ResponseEntity<String>(e.getStatusCode());
 
